@@ -1,5 +1,8 @@
 package com.crudejemplo.controlador;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crudejemplo.clases.Autor;
+import com.crudejemplo.exception.Excepcion;
 import com.crudejemplo.service.AutorService;
 
 @RestController
@@ -37,11 +41,26 @@ public class AutorControlador {
 	
 	@PutMapping
 	public ResponseEntity<?> actualizarAutor(@RequestBody Autor autor){
-		return null;
+		if(autor.getId()<=0) {
+			throw new Excepcion("Id inválido");
+		}
+		Autor a=autorService.actualizarAutor(autor);
+		
+		return new ResponseEntity<>(a,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{autorId}")
 	public ResponseEntity<?> borrarAutor(@PathVariable(required=true) int autorId){
-		return null;
+		try {
+			if(autorId<=0) {
+				throw new Excepcion ("Id inválido");
+			}
+			autorService.borrarAutor(autorId);
+		}catch (Exception e) {
+			throw new Excepcion("Error durante el borrado");
+		}
+		Map<String,Object> map= new HashMap<>();
+		map.put("mensaje", "Id borrado : " + autorId);
+		return new ResponseEntity<Map>(map,HttpStatus.OK);
 	}
 }

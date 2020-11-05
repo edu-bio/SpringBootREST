@@ -8,7 +8,7 @@ public interface AutorService {
 	
 	public Autor getAutor(int autorId);
 	
-	public int actualizarAutor(Autor autor);
+	public Autor actualizarAutor(Autor autor);
 	
 	public void borrarAutor(int autorId);
 	

@@ -1,9 +1,12 @@
 package com.crudejemplo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crudejemplo.clases.Autor;
+import com.crudejemplo.exception.Excepcion;
 
 @Service
 public class AutorServiceImpl implements AutorService {
@@ -19,19 +22,43 @@ public class AutorServiceImpl implements AutorService {
 
 	@Override
 	public Autor getAutor(int autorId) {
-		Autor a=repo.getOne(autorId);
-		return a;
+		Optional<Autor> a= repo.findById(autorId);
+		
+		if(!a.isPresent()) {
+			throw new Excepcion("Recurso no encontrado");
+		}
+		return a.get();
 	}
 
 	@Override
-	public int actualizarAutor(Autor autor) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Autor actualizarAutor(Autor autor) {
+		try {
+			Autor a=repo.findById(autor.getId()).get();
+			
+			if(null==a) {
+				throw new Excepcion("Recurso no encontrado");
+			}
+			return repo.save(autor);
+			
+			}catch(Exception e){
+				throw new Excepcion("Error al actualizar");
+			}
+		
 	}
 
 	@Override
 	public void borrarAutor(int autorId) {
-		// TODO Auto-generated method stub
+		try {
+			Autor a=repo.findById(autorId).get();
+			
+			if(null==a) {
+				throw new Excepcion("Recurso no encontrado");
+			}
+			repo.delete(a);
+			
+			}catch(Exception e){
+				throw new Excepcion("Error al borrar");
+			}
 		
 	}
 
