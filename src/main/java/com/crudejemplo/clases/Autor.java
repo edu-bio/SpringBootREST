@@ -2,9 +2,12 @@ package com.crudejemplo.clases;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,12 +17,16 @@ public class Autor {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="autorId")
 	private int id;
 	@Column(name="nombre")
 	private String nombre;
 	@Column(name="apellidos")
 	private String apellidos;
 	
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="libroId")
+	private Libro libro;	
 	
 	public int getId() {
 		return id;

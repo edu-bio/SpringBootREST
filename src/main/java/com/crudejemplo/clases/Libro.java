@@ -1,10 +1,13 @@
 package com.crudejemplo.clases;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,11 +16,15 @@ public class Libro {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="libroId")
 	private int id;
 	@Column(name="titulo")
 	private String titulo;
 	@Column(name="isbn")
 	private int isbn;
+	@OneToMany(mappedBy="libros", cascade=CascadeType.ALL)
+	@JoinTable(name="autores")
+	private int autorId;
 	
 	public int getId() {
 		return id;
