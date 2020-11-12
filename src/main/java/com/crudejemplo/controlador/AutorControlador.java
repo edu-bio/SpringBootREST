@@ -1,6 +1,7 @@
 package com.crudejemplo.controlador;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class AutorControlador {
 	public ResponseEntity<?> crearAutor (@RequestBody Autor autor){
 		Autor a=autorService.crearAutor(autor);
 		return new ResponseEntity<>(a,HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/todos")
+	public List<Autor> listado(){
+		
+		return (List<Autor>) autorService.listado();
 	}
 	
 	@GetMapping("/{autorId}")

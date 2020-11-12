@@ -1,5 +1,6 @@
 package com.crudejemplo.controlador;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crudejemplo.clases.Autor;
 import com.crudejemplo.clases.Libro;
 import com.crudejemplo.exception.Excepcion;
 import com.crudejemplo.service.LibroService;
@@ -35,6 +37,12 @@ public class LibroControlador {
 		
 			Libro a=libroService.getLibro(libroId);
 			return new ResponseEntity<>(a,HttpStatus.OK);
+		}
+		
+		@GetMapping("/todos")
+		public List<Libro> listado(){
+			
+			return (List<Libro>) libroService.listado();
 		}
 		
 		@PutMapping

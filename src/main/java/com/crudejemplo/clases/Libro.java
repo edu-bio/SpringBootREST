@@ -1,5 +1,7 @@
 package com.crudejemplo.clases;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +24,14 @@ public class Libro {
 	private String titulo;
 	@Column(name="isbn")
 	private int isbn;
-	@OneToMany(mappedBy="libros", cascade=CascadeType.ALL)
-	@JoinTable(name="autores")
-	private int autorId;
+	@OneToMany(mappedBy="libro", cascade=CascadeType.ALL)
+	//@JoinTable(name="autores")
+	private List<Autor> autores;
 	
+	
+	public Libro() {
+		
+	}
 	public int getId() {
 		return id;
 	}

@@ -1,5 +1,6 @@
 package com.crudejemplo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,12 @@ import com.crudejemplo.exception.Excepcion;
 					throw new Excepcion("Error al borrar");
 				}
 			
+		}
+
+		@Override
+		public List<Libro> listado() {
+			
+			return repo.findAll();
 		}
 
 }

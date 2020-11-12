@@ -1,5 +1,6 @@
 package com.crudejemplo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,12 @@ public class AutorServiceImpl implements AutorService {
 				throw new Excepcion("Error al borrar");
 			}
 		
+	}
+
+	@Override
+	public List<Autor> listado() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
 	}
 
 }
