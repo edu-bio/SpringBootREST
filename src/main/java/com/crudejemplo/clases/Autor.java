@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Autor")
 public class Autor {
@@ -17,7 +19,7 @@ public class Autor {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="autorId")
+	@Column(name="Id")
 	private int id;
 	@Column(name="nombre")
 	private String nombre;
@@ -26,6 +28,7 @@ public class Autor {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="libroId")
+	@JsonIgnore
 	private Libro libro;	
 	
 	public int getId() {
