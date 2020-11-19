@@ -14,6 +14,7 @@ public class ExcepcionClases extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler
 	public final ResponseEntity<?> handleCrudOperationException(Excepcion e, WebRequest w){
+		//e= new Excepcion("Elemento NO ENCONTRADO");
 		return new ResponseEntity<Object>(e,HttpStatus.BAD_REQUEST);
 	}
 }

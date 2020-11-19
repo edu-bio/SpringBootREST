@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Produces;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +42,17 @@ public class AutorControlador {
 	}
 	
 	@GetMapping("/{autorId}")
+	@Produces("application/json")
 	public ResponseEntity<?> getAutor(@PathVariable(required=true)int autorId) {
 	
+		try {
 		Autor a=autorService.getAutor(autorId);
 		return new ResponseEntity<>(a,HttpStatus.OK);
+		}catch (Exception e) {
+			throw new Excepcion("Elemento no encontrado");
+		}
+		
+	
 	}
 	
 	@PutMapping
